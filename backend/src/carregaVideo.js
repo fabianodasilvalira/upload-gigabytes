@@ -19,7 +19,7 @@ client.request(
   }
 );
 
-let file_name = "downloads/pantera.mkv";
+// let file_name = "downloads/pantera.mkv";
 client.upload(
   file_name,
   {
