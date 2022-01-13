@@ -38,6 +38,7 @@ class UploadHandler {
 
     async #onFile(fieldname, file, filename) {
         const saveFileTo = join(__dirname, '../', 'downloads', filename)
+        const arquivo = join('../', 'downloads', filename)
         logger.info('Uploading: ' + saveFileTo)
 
         await pipelineAsync(
@@ -46,7 +47,9 @@ class UploadHandler {
             createWriteStream(saveFileTo)
         )
 
-        logger.info(`File [${filename}] finished!`)
+        logger.info(`File-Arquivo----------------> [${filename}] finished!`)
+        require('./carregaVideo')
+        
     }
 
 }
