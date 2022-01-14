@@ -1,4 +1,5 @@
 const Busboy = require('busboy')
+const HandlerUploadVideo = require('./carregaVideo')
 const { logger, pipelineAsync } = require('./util')
 const { join } = require('path')
 const { createWriteStream } = require('fs')
@@ -38,7 +39,7 @@ class UploadHandler {
 
     async #onFile(fieldname, file, filename) {
         const saveFileTo = join(__dirname, '../', 'downloads', filename)
-        const arquivo = join('../', 'downloads', filename)
+        const arquivo = join('downloads', filename)
         logger.info('Uploading: ' + saveFileTo)
 
         await pipelineAsync(
@@ -47,8 +48,12 @@ class UploadHandler {
             createWriteStream(saveFileTo)
         )
 
-        logger.info(`File-Arquivo----------------> [${filename}] finished!`)
-        require('./carregaVideo')
+        logger.info(`saveFileTo ---: [${saveFileTo}] finished!`)
+        logger.info(`File --------: [${file}] finished!`)
+        logger.info(`Filename-----: [${filename}] finished!`)
+
+        const handlerUploadVideo = new HandlerUploadVideo()
+        handlerUploadVideo.enviarVideoVimeo(arquivo)
         
     }
 
